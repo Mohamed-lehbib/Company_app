@@ -1,8 +1,10 @@
-import React from 'react'
-import CreateCompany from './CreateCompany'
+import React from "react";
+import CreateCompany from "./CreateCompany";
 
-export default function Company() {
+export default function CompanyComponent() {
   return (
-    <div><CreateCompany/></div>
-  )
+    <div>
+      <CreateCompany />
+    </div>
+  );
 }
