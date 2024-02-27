@@ -120,7 +120,7 @@ export default function CreateCompany() {
           )}
           {logoPath && (
             <img src={logoPath} alt="Logo Preview" width={150} height={150} />
-          )}{" "}
+          )}
           {/* Display preview of the logo */}
           <br />
           <label>Type:</label>
