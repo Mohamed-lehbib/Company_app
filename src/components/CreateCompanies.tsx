@@ -1,19 +1,35 @@
+import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 
 export default function CreateCompanies() {
   const form = useForm<Company>({ mode: "all" });
-  const { register, handleSubmit, formState, control } = form;
+  const { register, handleSubmit, formState, reset } = form;
   const { errors } = formState;
+  const [logo, setLogo] = useState<File | null>(null); // State for storing the file object
+  const [logoPath, setLogoPath] = useState<string>("");
   const onSubmit = (data: Company) => {
-    console.log(data);
+    const submissionData = {
+      ...data,
+      logoPath, // Include the logoPath in the data being submitted
+    };
+    console.log(submissionData);
+    reset();
+    setLogo(null);
+    setLogoPath("");
   };
-  const handleFileChange = (file: File) => {
-    if (!isValidLogo(file)) {
-      alert("Please select a valid image file (JPEG, PNG, GIF, SVG).");
+  function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
+    const file = e.target.files?.[0]; // Get the first file selected by the user
+    if (file) {
+      if (!isValidLogo(file)) {
+        alert("Please select a valid image file (JPEG, PNG, GIF, SVG).");
+      }
+      setLogo(file); // Set the file object to state
+      setLogoPath(URL.createObjectURL(file)); // Get the path of the file object
+    } else {
+      setLogo(null); // Reset the file object if no file is selected
+      setLogoPath(""); // Reset the path if no file is selected
     }
-
-    // Do something with the file if it's valid
-  };
+  }
   const isValidLogo = (logo: File) => {
     // Check if the file type is image or svg
     return logo.type.startsWith("image/");
@@ -62,7 +78,7 @@ export default function CreateCompanies() {
         <p style={{ color: "red" }}>{errors.website?.message}</p>
 
         <label>Logo</label>
-        <Controller
+        {/* <Controller
           name="logo"
           control={control}
           defaultValue=""
@@ -78,7 +94,19 @@ export default function CreateCompanies() {
               }}
             />
           )}
-        />
+        /> */}
+        <input type="file" onChange={handleLogoChange} />
+        <br />
+        {logo && !isValidLogo(logo) && (
+          <p style={{ color: "red" }}>
+            This isn't a valid logo if no valid format
+          </p>
+        )}
+        {logoPath && (
+          <img src={logoPath} alt="Logo Preview" width={150} height={150} />
+        )}
+        {/* Display preview of the logo */}
+
         <br />
         <label>Type</label>
         <select {...register("type")}>
