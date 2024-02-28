@@ -1,27 +1,38 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
+import { Navigate, useNavigate } from "react-router-dom";
+interface CreateCompaniesProps {
+  addCompany: (newCompany: Company) => void;
+}
 
-export default function CreateCompanies() {
+export default function CreateCompanies({ addCompany }: CreateCompaniesProps) {
   const form = useForm<Company>({ mode: "all" });
   const { register, handleSubmit, formState, reset } = form;
   const { errors } = formState;
   const [logo, setLogo] = useState<File | null>(null); // State for storing the file object
   const [logoPath, setLogoPath] = useState<string>("");
+  // ** Navigation
+  const navigate = useNavigate();
+  // ** The Function on Submit
   const onSubmit = (data: Company) => {
     const submissionData = {
       ...data,
-      logoPath, // Include the logoPath in the data being submitted
+      logo: logoPath, // Include the logoPath in the data being submitted
     };
     console.log(submissionData);
+    addCompany(submissionData);
     reset();
     setLogo(null);
     setLogoPath("");
+    navigate("/list");
   };
+  //  ** Controlled Inputs
   function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0]; // Get the first file selected by the user
     if (file) {
       if (!isValidLogo(file)) {
         alert("Please select a valid image file (JPEG, PNG, GIF, SVG).");
+        setLogo(null);
       }
       setLogo(file); // Set the file object to state
       setLogoPath(URL.createObjectURL(file)); // Get the path of the file object
@@ -30,6 +41,7 @@ export default function CreateCompanies() {
       setLogoPath(""); // Reset the path if no file is selected
     }
   }
+  // ** Validating the logo type
   const isValidLogo = (logo: File) => {
     // Check if the file type is image or svg
     return logo.type.startsWith("image/");
