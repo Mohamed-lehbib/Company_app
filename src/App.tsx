@@ -35,12 +35,21 @@ export default function App() {
     setCompanies((prevCompanies) => [...prevCompanies, newCompany]);
   };
 
+  // Function to delete a company
+  const handleDelete = (index: number) => {
+    setCompanies((prevCompanies) =>
+      prevCompanies.filter((_, i) => i !== index)
+    );
+  };
+
   return (
     <div>
       <Routes>
         <Route
           path="/"
-          element={<ListCompanies companies={companies} />}
+          element={
+            <ListCompanies companies={companies} handleDelete={handleDelete} />
+          }
         ></Route>
         <Route
           path="/add-company"

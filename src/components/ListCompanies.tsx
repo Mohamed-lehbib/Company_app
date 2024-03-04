@@ -1,7 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-export default function ListCompanies({ companies }: { companies: Company[] }) {
+interface ListCompaniesProps {
+  companies: Company[];
+  handleDelete: (index: number) => void; // Function to handle deletion
+}
+
+export default function ListCompanies({
+  companies,
+  handleDelete,
+}: ListCompaniesProps) {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
 
@@ -60,6 +68,7 @@ export default function ListCompanies({ companies }: { companies: Company[] }) {
                 </a>
               </p> */}
               <p className="card-text">Type: {company.type}</p>
+              <button onClick={() => handleDelete(index)}>Delete</button>
             </div>
           </div>
         ))}

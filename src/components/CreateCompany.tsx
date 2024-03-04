@@ -133,9 +133,7 @@ export default function CreateCompany() {
           <button type="submit">Submit</button>
         </form>
       </div>
-      <div>
-        <ListCompanies companies={companies} />
-      </div>
+      <div>{/* <ListCompanies companies={companies} /> */}</div>
     </div>
   );
 }
