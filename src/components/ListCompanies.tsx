@@ -39,66 +39,64 @@ export default function ListCompanies({
   };
 
   return (
-    <div>
+    <div className="container mt-4">
       <h2 className="mb-4">List of Companies</h2>
       <button
         onClick={() => {
           navigate("/add-company");
         }}
+        className="btn btn-primary mb-3"
       >
-        Add new Company
+        Add New Company
       </button>
-      <div>
-        <input
-          type="text"
-          placeholder="Search by name..."
-          value={searchTerm}
-          onChange={(e) => setSearchTerm(e.target.value)}
-          className="form-control mb-4"
-          style={{ maxWidth: "300px", margin: "0 auto 20px" }}
-        />
-        <select
-          value={selectedType}
-          onChange={handleTypeChange}
-          className="form-select mb-4"
-          style={{ maxWidth: "300px", margin: "0 auto 20px" }}
-        >
-          <option value="">All Types</option>
-          <option value="Government">Government</option>
-          <option value="Private">Private</option>
-          <option value="Foreign">Foreign</option>
-        </select>
+      <div className="row mb-3">
+        <div className="col-md-6">
+          <input
+            type="text"
+            placeholder="Search by name..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="form-control"
+          />
+        </div>
+        <div className="col-md-6">
+          <select
+            value={selectedType}
+            onChange={handleTypeChange}
+            className="form-select"
+          >
+            <option value="">All Types</option>
+            <option value="Government">Government</option>
+            <option value="Private">Private</option>
+            <option value="Foreign">Foreign</option>
+          </select>
+        </div>
       </div>
-      <div className="d-flex flex-wrap justify-content-start">
+      <div className="row">
         {filteredCompanies.map((company, index) => (
-          <div className="card m-2" style={{ width: "18rem" }} key={index}>
-            <img
-              src={company.logo}
-              className="card-img-top"
-              alt={`${company.name} Logo`}
-              style={{ height: "180px", objectFit: "cover" }}
-            />
-            <div className="card-body">
-              <Link
-                to={`/company/${index}`}
-                style={{ textDecoration: "none", color: "inherit" }}
-              >
-                <h5 className="card-title">{company.name}</h5>
-              </Link>
-
-              {/* <p className="card-text">Email: {company.email}</p>
-              <p className="card-text">
-                Website:{" "}
-                <a
-                  href={company.website}
-                  target="_blank"
-                  rel="noopener noreferrer"
+          <div className="col-md-4 mb-3" key={index}>
+            <div className="card">
+              <img
+                src={company.logo}
+                className="card-img-top"
+                alt={`${company.name} Logo`}
+                style={{ height: "180px", objectFit: "cover" }}
+              />
+              <div className="card-body">
+                <Link
+                  to={`/company/${index}`}
+                  style={{ textDecoration: "none", color: "inherit" }}
                 >
-                  {company.website}
-                </a>
-              </p> */}
-              <p className="card-text">Type: {company.type}</p>
-              <button onClick={() => handleDelete(index)}>Delete</button>
+                  <h5 className="card-title">{company.name}</h5>
+                </Link>
+                <p className="card-text">Type: {company.type}</p>
+                <button
+                  onClick={() => handleDelete(index)}
+                  className="btn btn-danger"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           </div>
         ))}
