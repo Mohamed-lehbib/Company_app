@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 export default function ListCompanies({ companies }: { companies: Company[] }) {
   const navigate = useNavigate();
@@ -41,7 +41,13 @@ export default function ListCompanies({ companies }: { companies: Company[] }) {
               style={{ height: "180px", objectFit: "cover" }}
             />
             <div className="card-body">
-              <h5 className="card-title">{company.name}</h5>
+              <Link
+                to={`/company/${index}`}
+                style={{ textDecoration: "none", color: "inherit" }}
+              >
+                <h5 className="card-title">{company.name}</h5>
+              </Link>
+
               {/* <p className="card-text">Email: {company.email}</p>
               <p className="card-text">
                 Website:{" "}

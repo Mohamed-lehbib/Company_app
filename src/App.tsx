@@ -8,39 +8,25 @@ import DetailsCompany from "./components/DetailsCompany";
 export default function App() {
   const [companies, setCompanies] = useState<Company[]>([
     {
-      email: "microsoft@microsoft.com",
-      logo: "blob:http://localhost:3000/2fdef243-be95-4fd4-8e5e-6867abc2333d",
-      name: "Microsoft",
+      email: "user@example.com",
+      logo: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
+      name: "make coffee",
       type: "Foreign",
-      website: "http://microsoft.com",
+      website: "http://ndfnk.h",
     },
     {
-      name: "Apple",
-      email: "apple@apple.com",
-      website: "http://apple.com",
+      email: "user@example.com",
+      logo: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
+      name: "make coffee",
       type: "Foreign",
-      logo: "blob:http://localhost:3000/41e4c385-313f-45d6-adde-530ab3b94d27",
+      website: "http://ndfnk.h",
     },
     {
-      name: "Google",
-      email: "google@google.com",
-      website: "http://google.com",
+      email: "user@example.com",
+      logo: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
+      name: "make coffee",
       type: "Foreign",
-      logo: "blob:http://localhost:3000/c52f1838-e232-4b97-a76c-cb7ac34d1899",
-    },
-    {
-      name: "Tailwind",
-      email: "tailwind@tailwind.com",
-      website: "http://tailwindcss.com",
-      type: "Private",
-      logo: "blob:http://localhost:3000/b9a1a0ee-a2a6-46b0-b8e9-b3f86b850b35",
-    },
-    {
-      name: "React",
-      email: "react@react.com",
-      website: "http://react.com",
-      type: "Private",
-      logo: "blob:http://localhost:3000/1885ce6c-9c96-4795-9d9a-3e2892e0ca15",
+      website: "http://ndfnk.h",
     },
   ]);
 
