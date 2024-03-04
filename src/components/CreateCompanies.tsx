@@ -24,7 +24,7 @@ export default function CreateCompanies({ addCompany }: CreateCompaniesProps) {
     reset();
     setLogo(null);
     setLogoPath("");
-    navigate("/list");
+    navigate("/");
   };
   //  ** Controlled Inputs
   function handleLogoChange(e: React.ChangeEvent<HTMLInputElement>) {
@@ -90,23 +90,6 @@ export default function CreateCompanies({ addCompany }: CreateCompaniesProps) {
         <p style={{ color: "red" }}>{errors.website?.message}</p>
 
         <label>Logo</label>
-        {/* <Controller
-          name="logo"
-          control={control}
-          defaultValue=""
-          render={({ field: { onChange } }) => (
-            <input
-              type="file"
-              onChange={(e) => {
-                const file = e.target.files?.[0];
-                if (file) {
-                  onChange(file);
-                  handleFileChange(file);
-                }
-              }}
-            />
-          )}
-        /> */}
         <input type="file" onChange={handleLogoChange} />
         <br />
         {logo && !isValidLogo(logo) && (
