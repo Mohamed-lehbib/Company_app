@@ -57,7 +57,9 @@ export default function App() {
         ></Route>
         <Route
           path="/company/:id"
-          element={<DetailsCompany companies={companies} />}
+          element={
+            <DetailsCompany companies={companies} setCompanies={setCompanies} />
+          }
         ></Route>
       </Routes>
       {/* <CompanyComponent /> */}

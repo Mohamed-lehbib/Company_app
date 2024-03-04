@@ -12,13 +12,32 @@ export default function ListCompanies({
 }: ListCompaniesProps) {
   const navigate = useNavigate();
   const [searchTerm, setSearchTerm] = useState("");
+  const [selectedType, setSelectedType] = useState<string>("");
 
-  const filteredCompanies =
-    searchTerm.length === 0
-      ? companies
-      : companies.filter((company) =>
-          company.name.toLowerCase().includes(searchTerm.toLowerCase())
-        );
+  const filteredCompanies = companies.filter((company) => {
+    if (
+      selectedType &&
+      selectedType !== "" &&
+      company.type.toLowerCase() !== selectedType.toLowerCase()
+    ) {
+      return false; // Skip if type is selected and doesn't match
+    }
+
+    if (
+      searchTerm &&
+      searchTerm !== "" &&
+      !company.name.toLowerCase().includes(searchTerm.toLowerCase())
+    ) {
+      return false; // Skip if search term is provided and doesn't match
+    }
+
+    return true; // Include if matches all criteria
+  });
+
+  const handleTypeChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedType(event.target.value);
+  };
+
   return (
     <div>
       <h2 className="mb-4">List of Companies</h2>
@@ -36,8 +55,19 @@ export default function ListCompanies({
           value={searchTerm}
           onChange={(e) => setSearchTerm(e.target.value)}
           className="form-control mb-4"
-          style={{ maxWidth: "300px", margin: "0 auto 20px" }} // Optional inline styles
+          style={{ maxWidth: "300px", margin: "0 auto 20px" }}
         />
+        <select
+          value={selectedType}
+          onChange={handleTypeChange}
+          className="form-select mb-4"
+          style={{ maxWidth: "300px", margin: "0 auto 20px" }}
+        >
+          <option value="">All Types</option>
+          <option value="Government">Government</option>
+          <option value="Private">Private</option>
+          <option value="Foreign">Foreign</option>
+        </select>
       </div>
       <div className="d-flex flex-wrap justify-content-start">
         {filteredCompanies.map((company, index) => (
