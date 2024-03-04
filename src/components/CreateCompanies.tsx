@@ -46,91 +46,115 @@ export default function CreateCompanies({ addCompany }: CreateCompaniesProps) {
   //   // Check if the file type is image or svg
   //   return logo.type.startsWith("image/");
   // };
-
+  const onCancel = () => {
+    navigate(-1);
+  };
   return (
-    <div>
+    <div className="container mt-4">
+      <h2 className="mb-4">Add New Company</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <label>Name</label>
-        <input
-          type="text"
-          {...register("name", {
-            required: { value: true, message: "Name is required" },
-          })}
-        />
-        <br />
-        <p style={{ color: "red" }}>{errors.name?.message}</p>
-        <label>Email</label>
-        <input
-          type="text"
-          {...register("email", {
-            required: { value: true, message: "Email is required" },
-            pattern: {
-              value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
-              message: "Invalid Email format example: example@example.com",
-            },
-          })}
-        />
-        <br />
+        <div className="mb-3">
+          <label className="form-label">Name</label>
+          <input
+            type="text"
+            className="form-control"
+            {...register("name", {
+              required: { value: true, message: "Name is required" },
+            })}
+          />
 
-        <p style={{ color: "red" }}>{errors.email?.message}</p>
+          <p className="text-danger">{errors.name?.message}</p>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Email</label>
+          <input
+            type="text"
+            className="form-control"
+            {...register("email", {
+              required: { value: true, message: "Email is required" },
+              pattern: {
+                value: /^[^\s@]+@[^\s@]+\.[^\s@]+$/,
+                message: "Invalid Email format example: example@example.com",
+              },
+            })}
+          />
 
-        <label>WebSite</label>
-        <input
-          type="text"
-          {...register("website", {
-            required: { value: true, message: "WebSite is required" },
-            pattern: {
-              value: /^(ftp|http|https):\/\/[^ "]+$/,
-              message: "Invalid website URL format example: http://example.com",
-            },
-          })}
-        />
-        <br />
+          <p className="text-danger">{errors.email?.message}</p>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">WebSite</label>
+          <input
+            type="text"
+            className="form-control"
+            {...register("website", {
+              required: { value: true, message: "WebSite is required" },
+              pattern: {
+                value: /^(ftp|http|https):\/\/[^ "]+$/,
+                message:
+                  "Invalid website URL format example: http://example.com",
+              },
+            })}
+          />
 
-        <p style={{ color: "red" }}>{errors.website?.message}</p>
-
-        <label>Logo</label>
-        {/* <input type="file" onChange={handleLogoChange} />
+          <p className="text-danger">{errors.website?.message}</p>
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Logo</label>
+          {/* <input type="file" onChange={handleLogoChange} />
         <br />
         {logo && !isValidLogo(logo) && (
-          <p style={{ color: "red" }}>
+          <p className="text-danger">
             This isn't a valid logo if no valid format
           </p>
         )}
         {logoPath && (
           <img src={logoPath} alt="Logo Preview" width={150} height={150} />
         )} */}
-        <input
-          type="text"
-          {...register("logo", {
-            required: { value: true, message: "Logo is required" },
-            pattern: {
-              value: /^(ftp|http|https):\/\/[^ "]+$/,
-              message: "Invalid logo URL format example: http://example.com",
-            },
-          })}
-        />
-        <p style={{ color: "red" }}>{errors.logo?.message}</p>
-
-        {/* Display preview of the logo */}
-        {form.getValues().logo && (
-          <img
-            src={form.getValues().logo}
-            alt="Logo Preview"
-            width={150}
-            height={150}
+          <input
+            type="text"
+            className="form-control"
+            {...register("logo", {
+              required: { value: true, message: "Logo is required" },
+              pattern: {
+                value: /^(ftp|http|https):\/\/[^ "]+$/,
+                message: "Invalid logo URL format example: http://example.com",
+              },
+            })}
           />
-        )}
+          <p className="text-danger">{errors.logo?.message}</p>
+        </div>
+        {/* Display preview of the logo */}
+        <div className="mb-3">
+          {form.getValues().logo && (
+            <img
+              src={form.getValues().logo}
+              alt="Logo Preview"
+              className="img-thumbnail"
+              style={{ width: "150px", height: "150px" }}
+            />
+          )}
+        </div>
+        <div className="mb-3">
+          <label className="form-label">Type</label>
+          <select {...register("type")} className="form-select">
+            <option value="Government">Government</option>
+            <option value="Private">Private</option>
+            <option value="Foreign">Foreign</option>
+          </select>
+        </div>
 
-        <br />
-        <label>Type</label>
-        <select {...register("type")}>
-          <option value="Government">Government</option>
-          <option value="Private">Private</option>
-          <option value="Foreign">Foreign</option>
-        </select>
-        <br />
-        <button> Submit </button>
+        <div className="text-start">
+          <button
+            type="button"
+            className="btn btn-secondary me-2"
+            onClick={onCancel}
+          >
+            Cancel
+          </button>
+          <button type="submit" className="btn btn-primary">
+            Submit
+          </button>
+        </div>
       </form>
     </div>
   );
