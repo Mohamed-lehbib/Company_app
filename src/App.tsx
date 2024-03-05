@@ -8,18 +8,18 @@ import DetailsCompany from "./components/DetailsCompany";
 export default function App() {
   const [companies, setCompanies] = useState<Company[]>([
     {
-      email: "user@example.com",
-      logo: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-      name: "make coffee",
-      type: "Foreign",
-      website: "http://ndfnk.h",
+      email: "contact@vector-mind.com",
+      logo: "https://www.vector-mind.com/assets/images/vm-logo-purpel.svg",
+      name: "Vector Mind",
+      type: "Private",
+      website: "https://www.vector-mind.com",
     },
     {
-      email: "user@example.com",
-      logo: "https://www.simplilearn.com/ice9/free_resources_article_thumb/what_is_image_Processing.jpg",
-      name: "make coffee",
+      email: "contact@apple.com",
+      logo: "https://upload.wikimedia.org/wikipedia/commons/f/fa/Apple_logo_black.svg",
+      name: "Apple",
       type: "Foreign",
-      website: "http://ndfnk.h",
+      website: "http://apple.com",
     },
     {
       email: "user@example.com",

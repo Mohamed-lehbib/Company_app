@@ -59,10 +59,19 @@ export default function DetailsCompany({
   if (!company) {
     return <div>Company not found</div>;
   }
-  const { removeItem, getItem, setItem } = useLocalStorage("selectedCompany");
+  const { getItem } = useLocalStorage();
   return (
     <div className="container mt-4">
-      <h1>selectedCompany: {getItem().company}</h1>
+      <p>
+        and visite number:
+         <b>{getItem("visitCount") ? getItem("visitCount") : 0}</b>
+      </p>
+      <p>
+        selectedCompany:
+         <b>{getItem("selectedCompany")
+          ? getItem("selectedCompany").name
+          : "No company is selected"} </b>
+      </p>
       <div>
         <img
           src={company.logo}

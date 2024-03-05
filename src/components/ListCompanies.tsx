@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useLocalStorage } from "./useLocalStorage";
 
 interface ListCompaniesProps {
@@ -12,6 +12,7 @@ export default function ListCompanies({
   handleDelete,
 }: ListCompaniesProps) {
   const navigate = useNavigate();
+  const location = useLocation();
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedType, setSelectedType] = useState<string>("");
 
@@ -43,12 +44,40 @@ export default function ListCompanies({
   const [selectedCompany, setSelectedCompany] = useState<string>(
     "No company is selected"
   );
-  const { removeItem, getItem, setItem } = useLocalStorage("selectedCompany");
-  // const { removeIndex, getIndex, setIndex } = useLocalStorage("selectedCompany");
+  const { getItem, setItem } = useLocalStorage();
+  // The visite number
+  const [visiteNumber, setVisiteNumber] = useState(0);
+  // to update the visite number
+  useEffect(() => {
+    setSelectedCompany(getItem("selectedCompany").name);
+    setSelectedCompanyIndex(getItem("selectedCompany").index);
+    const incrementVisitCount = () => {
+      // Check if the user is navigating to the home page
+      if (location.pathname === "/") {
+        // Check if the variable exists in local storage
+        const visitCount = parseInt(getItem("visitCount")) || 0;
+        setItem("visitCount", visitCount + 1);
+        setVisiteNumber(getItem("visitCount"));
+      }
+    };
 
+    // Call the function when the component mounts
+    incrementVisitCount();
+
+    // Clean up the listener when the component unmounts
+    return () => {};
+  }, [location]);
   return (
     <div className="container mt-4">
-      <h1>selectedCompany: {getItem() && getItem().company}</h1>
+      <p>
+        selectedCompany:
+        <b>{selectedCompany ? selectedCompany : "No company is selected"}</b>
+      </p>
+
+      <p>
+        and visite number:
+        <b>{getItem("visitCount") ? getItem("visitCount") : 0} </b>
+      </p>
       <h2 className="mb-4">List of Companies</h2>
       <button
         onClick={() => {
@@ -87,14 +116,21 @@ export default function ListCompanies({
             <div
               className={
                 "card " +
-                (getItem() &&
-                  (getItem().index === index ? "border-primary" : ""))
+                (getItem("selectedCompany") &&
+                  (getItem("selectedCompany").index === index
+                    ? "border-primary"
+                    : ""))
               }
               onClick={() => {
                 console.log("Card clicked");
-                setSelectedCompanyIndex(index);
-                setSelectedCompany(company.name);
-                setItem({ company: company.name, index: index });
+                // setSelectedCompanyIndex(index);
+                // setSelectedCompany(company.name);
+                setItem("selectedCompany", {
+                  name: company.name,
+                  index: index,
+                });
+                setSelectedCompanyIndex(getItem("selectedCompany").index);
+                setSelectedCompany(getItem("selectedCompany").name);
               }}
             >
               <img

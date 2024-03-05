@@ -50,10 +50,21 @@ export default function CreateCompanies({ addCompany }: CreateCompaniesProps) {
   const onCancel = () => {
     navigate(-1);
   };
-  const { removeItem, getItem, setItem } = useLocalStorage("selectedCompany");
+  const { getItem } = useLocalStorage();
   return (
     <div className="container mt-4">
-      <h1>selectedCompany: {getItem().company}</h1>
+      <p>
+        and visite number:
+        <b>{getItem("visitCount") ? getItem("visitCount") : 0}</b>
+      </p>
+      <p>
+        selectedCompany:
+        <b>
+          {getItem("selectedCompany")
+            ? getItem("selectedCompany").name
+            : "No company is selected"}
+        </b>
+      </p>
       <h2 className="mb-4">Add New Company</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
