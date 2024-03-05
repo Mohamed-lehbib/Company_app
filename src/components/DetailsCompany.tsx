@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
 
 interface DetailsCompanyProps {
   companies: Company[];
@@ -58,9 +59,10 @@ export default function DetailsCompany({
   if (!company) {
     return <div>Company not found</div>;
   }
-
+  const { removeItem, getItem, setItem } = useLocalStorage("selectedCompany");
   return (
     <div className="container mt-4">
+      <h1>selectedCompany: {getItem().company}</h1>
       <div>
         <img
           src={company.logo}

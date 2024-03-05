@@ -1,5 +1,6 @@
 import React, { FormEvent, useState } from "react";
 import ListCompanies from "./ListCompanies";
+import { useLocalStorage } from "./useLocalStorage";
 
 export default function CreateCompany() {
   const [name, setName] = useState<string>("");
@@ -73,9 +74,11 @@ export default function CreateCompany() {
     // Check if the file type is image or svg
     return logo.type.startsWith("image/") || logo.type === "image/svg+xml";
   }
+  
 
   return (
     <div>
+      
       <div>
         <form onSubmit={handleSubmit}>
           <label>Name:</label>

@@ -1,9 +1,10 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
 
 interface ListCompaniesProps {
   companies: Company[];
-  handleDelete: (index: number) => void; // Function to handle deletion
+  handleDelete: (index: number) => void;
 }
 
 export default function ListCompanies({
@@ -38,8 +39,16 @@ export default function ListCompanies({
     setSelectedType(event.target.value);
   };
 
+  const [selectedCompanyIndex, setSelectedCompanyIndex] = useState<number>(-1);
+  const [selectedCompany, setSelectedCompany] = useState<string>(
+    "No company is selected"
+  );
+  const { removeItem, getItem, setItem } = useLocalStorage("selectedCompany");
+  // const { removeIndex, getIndex, setIndex } = useLocalStorage("selectedCompany");
+
   return (
     <div className="container mt-4">
+      <h1>selectedCompany: {getItem() && getItem().company}</h1>
       <h2 className="mb-4">List of Companies</h2>
       <button
         onClick={() => {
@@ -75,7 +84,19 @@ export default function ListCompanies({
       <div className="row">
         {filteredCompanies.map((company, index) => (
           <div className="col-md-4 mb-3" key={index}>
-            <div className="card">
+            <div
+              className={
+                "card " +
+                (getItem() &&
+                  (getItem().index === index ? "border-primary" : ""))
+              }
+              onClick={() => {
+                console.log("Card clicked");
+                setSelectedCompanyIndex(index);
+                setSelectedCompany(company.name);
+                setItem({ company: company.name, index: index });
+              }}
+            >
               <img
                 src={company.logo}
                 className="card-img-top"

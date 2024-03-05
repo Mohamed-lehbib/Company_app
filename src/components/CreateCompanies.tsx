@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Controller, useForm } from "react-hook-form";
 import { Navigate, useNavigate } from "react-router-dom";
+import { useLocalStorage } from "./useLocalStorage";
 interface CreateCompaniesProps {
   addCompany: (newCompany: Company) => void;
 }
@@ -49,8 +50,10 @@ export default function CreateCompanies({ addCompany }: CreateCompaniesProps) {
   const onCancel = () => {
     navigate(-1);
   };
+  const { removeItem, getItem, setItem } = useLocalStorage("selectedCompany");
   return (
     <div className="container mt-4">
+      <h1>selectedCompany: {getItem().company}</h1>
       <h2 className="mb-4">Add New Company</h2>
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="mb-3">
