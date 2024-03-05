@@ -49,8 +49,10 @@ export default function ListCompanies({
   const [visiteNumber, setVisiteNumber] = useState(0);
   // to update the visite number
   useEffect(() => {
-    setSelectedCompany(getItem("selectedCompany").name);
-    setSelectedCompanyIndex(getItem("selectedCompany").index);
+    getItem("selectedCompany") &&
+      setSelectedCompany(getItem("selectedCompany").name);
+    getItem("selectedCompany") &&
+      setSelectedCompanyIndex(getItem("selectedCompany").index);
     const incrementVisitCount = () => {
       // Check if the user is navigating to the home page
       if (location.pathname === "/") {
